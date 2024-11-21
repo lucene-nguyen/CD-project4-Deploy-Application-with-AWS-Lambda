@@ -1,6 +1,8 @@
 import middy from '@middy/core'
 import cors from '@middy/http-cors'
 import httpErrorHandler from '@middy/http-error-handler'
+import businessLogicTodosInstance from '../../businessLogic/todos.mjs'
+import { getUserId } from '../utils.mjs'
 
 export const handler = middy()
   .use(httpErrorHandler())
@@ -10,8 +12,15 @@ export const handler = middy()
     })
   )
   .handler(async (event) => {
-    // TODO: Get all TODO items for a current user
-    return undefined
+    const userId = getUserId(event)
+    const result = await businessLogicTodosInstance.get(userId)
+
+    return {
+      statusCode: 201,
+      body: JSON.stringify({
+        result
+      })
+    }
   })
   
 
