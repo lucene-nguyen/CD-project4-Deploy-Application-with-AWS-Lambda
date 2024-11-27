@@ -17,7 +17,7 @@ provider:
   environment:
     TODOS_TABLE: Todos-${self:provider.stage}
     TODOS_CREATED_AT_INDEX: CreatedAtIndex
-    TODOS_S3_BUCKET: Todos-images-${self:provider.stage}
+    TODOS_S3_BUCKET: lucenenguyen-todos-images-${self:provider.stage}
 
   tracing:
     lambda: true
@@ -57,6 +57,9 @@ functions:
           path: todos
           cors: true
           authorizer: Auth
+          request:
+            schemas:
+              application/json: ${file(models/create-todo-model.json)}
     iamRoleStatementsInherit: true
     iamRoleStatements:
       - Effect: Allow
@@ -79,6 +82,9 @@ functions:
           path: todos/{todoId}
           cors: true
           authorizer: Auth
+          request:
+            schemas:
+              application/json: ${file(models/update-todo-model.json)}
     iamRoleStatementsInherit: true
     iamRoleStatements:
       - Effect: Allow
