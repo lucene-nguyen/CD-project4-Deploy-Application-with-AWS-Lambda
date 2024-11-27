@@ -16,7 +16,7 @@ export const handler = middy()
     const result = await businessLogicTodosInstance.get(userId)
 
     return {
-      statusCode: 201,
+      statusCode: 200,
       body: JSON.stringify({
         result
       })

@@ -15,10 +15,13 @@ export const handler = middy()
     const todoId = event.pathParameters.todoId
     const userId = getUserId(event)
 
-    await businessLogicTodosInstance.delete(userId,todoId)
+    const result = await businessLogicTodosInstance.delete(userId,todoId)
+    
     return {
       statusCode: 200,
-      body: {}
+      body: JSON.stringify({
+        result
+      })
     }
   })
 

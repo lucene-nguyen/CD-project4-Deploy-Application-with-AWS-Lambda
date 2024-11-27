@@ -18,8 +18,8 @@ export const handler = middy()
     const uploadUrl = await getPutSignedUrl(key)
     return {
       statusCode: 200,
-      body: {
+      body: JSON.stringify({
         uploadUrl
-      }
+      })
     }
   })

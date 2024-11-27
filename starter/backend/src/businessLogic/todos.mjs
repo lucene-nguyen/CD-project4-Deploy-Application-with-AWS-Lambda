@@ -22,6 +22,10 @@ class BusinessLogicTodos{
   async delete(userId, todoId){
     return todosAccessInstance.delete(userId, todoId)
   }
+
+  async getByTodoId(userId, todoId){
+    return todosAccessInstance.getByTodoId(userId, todoId)
+  }
 }
 
 const businessLogicTodosInstance = new BusinessLogicTodos();

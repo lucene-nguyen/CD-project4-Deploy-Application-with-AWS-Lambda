@@ -45,6 +45,8 @@ class TodosAccess {
           ':dn': updateData.done
         }
       })
+
+    return result;
   }
 
   async delete(userId, todoId){
@@ -53,7 +55,22 @@ class TodosAccess {
       TableName: this.todosTable,
       Key: { userId, todoId }
     })
+
+    return result;
   }
+
+  async getByTodoId(userId, todoId) {
+    const result = await this.dynamoDbClient.query({
+      TableName: todosTable,
+      KeyConditionExpression: 'userId = :userId AND todoId = :todoId',
+      ExpressionAttributeValues: {
+        ':userId': userId,
+        ':todoId': todoId
+      }
+    })
+    return result.Items
+  }  
+
 }
 
 const todosAccessInstance = new TodosAccess();
