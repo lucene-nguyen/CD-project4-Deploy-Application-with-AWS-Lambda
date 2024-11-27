@@ -45,8 +45,6 @@ class TodosAccess {
           ':dn': updateData.done
         }
       })
-
-    return result;
   }
 
   async delete(userId, todoId){
@@ -55,8 +53,6 @@ class TodosAccess {
       TableName: this.todosTable,
       Key: { userId, todoId }
     })
-
-    return result;
   }
 
   async getByTodoId(userId, todoId) {

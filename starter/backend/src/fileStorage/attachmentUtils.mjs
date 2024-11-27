@@ -14,3 +14,7 @@ export async function getPutSignedUrl(key, expiresIn = 300){
     expiresIn
   })
 }
+
+export function getAttachmentUrl(key) {
+  return `https://${this.bucketName}.s3.amazonaws.com/${key}`
+}

@@ -1,5 +1,6 @@
 import todosAccessInstance from '../dataLayer/todosAccess.mjs'
 import * as uuid from 'uuid'
+import { getAttachmentUrl } from '../fileStorage/attachmentUtils.mjs'
 
 class BusinessLogicTodos{
   async create(userId, todoInput){
@@ -7,6 +8,8 @@ class BusinessLogicTodos{
       userId,
       todoId: uuid.v4(),
       createdAt: new Date().toISOString(),
+      attachmentUrl: getAttachmentUrl(todoId),
+      done: false,
       ...todoInput,
     })
   }
