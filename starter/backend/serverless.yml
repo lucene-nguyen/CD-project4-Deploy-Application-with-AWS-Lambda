@@ -18,6 +18,10 @@ provider:
     TODOS_CREATED_AT_INDEX: CreatedAtIndex
     TODOS_S3_BUCKET: Todos-images-${self:provider.stage}
 
+  tracing:
+    lambda: true
+    apiGateway: true
+
 functions:
 
   Auth:

@@ -1,13 +1,17 @@
 import { DynamoDB } from '@aws-sdk/client-dynamodb'
 import { DynamoDBDocument } from '@aws-sdk/lib-dynamodb'
+import { captureAWSv3Client } from 'aws-xray-sdk-core'
 
-const dynamoDbClient = DynamoDBDocument.from(new DynamoDB())
-const todosTable = process.env.TODOS_TABLE 
+const todosTable = process.env.TODOS_TABLE
 
 class TodosAccess {
+  constructor(){
+    this.dynamodbXRay = captureAWSv3Client(new DynamoDB())
+    this.dynamoDbClient = DynamoDBDocument.from(this.dynamodbXRay)
+  }
 
   async create(todoInput){
-    const result = await dynamoDbClient
+    const result = await this.dynamoDbClient
       .put({
         TableName: todosTable,
         Item: todoInput
@@ -16,7 +20,7 @@ class TodosAccess {
   }
 
   async get(userId){
-    const result = await dynamoDbClient.query({
+    const result = await this.dynamoDbClient.query({
       TableName: todosTable,
       KeyConditionExpression: 'userId = :userId',
         ExpressionAttributeValues: {
@@ -28,7 +32,7 @@ class TodosAccess {
   }
   
   async update(userId, todoId, updateData){
-    const result = await dynamoDbClient
+    const result = await this.dynamoDbClient
       .update({
         TableName: this.todosTable,
         Key: { userId, todoId },
@@ -44,7 +48,7 @@ class TodosAccess {
   }
 
   async delete(userId, todoId){
-    const result = await dynamoDbClient
+    const result = await this.dynamoDbClient
     .delete({
       TableName: this.todosTable,
       Key: { userId, todoId }
