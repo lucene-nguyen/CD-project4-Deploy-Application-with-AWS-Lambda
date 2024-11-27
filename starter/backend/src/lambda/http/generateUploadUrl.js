@@ -3,6 +3,7 @@ import cors from '@middy/http-cors'
 import httpErrorHandler from '@middy/http-error-handler'
 import { createTodo } from '../../businessLogic/todos.mjs'
 import { getUserId } from '../utils.mjs'
+import { getPutSignedUrl } from '../../fileStorage/attachmentUtils.mjs'
 
 export const handler = middy()
   .use(httpErrorHandler())
@@ -12,8 +13,13 @@ export const handler = middy()
     })
   )
   .handler(async (event) => {
-    const todoId = event.pathParameters.todoId
+    const key = event.pathParameters.key
 
-    // TODO: Return a presigned URL to upload a file for a TODO item with the provided id
-    return undefined
+    const uploadUrl = await getPutSignedUrl(key)
+    return {
+      statusCode: 200,
+      body: {
+        uploadUrl
+      }
+    }
   })
