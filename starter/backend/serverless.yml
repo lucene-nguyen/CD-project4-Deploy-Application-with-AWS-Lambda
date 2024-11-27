@@ -1,10 +1,11 @@
 org: lucenenguyen
+# "app" enables Serverless Framework Dashboard features and sharing them with other Services.
+app: serverless-todo-app
 service: serverless-todo-app
 
 plugins:
   - serverless-iam-roles-per-function
 
-frameworkVersion: '3'
 
 provider:
   name: aws
