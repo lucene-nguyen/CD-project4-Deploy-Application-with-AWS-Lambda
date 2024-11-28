@@ -13,6 +13,9 @@ export const handler = middy()
   .handler(async (event) => {
     const key = event.pathParameters.key
 
+    console.log("key: " + key)
+    console.log("event.pathParameters: " + event.pathParameters)
+
     const uploadUrl = await getPutSignedUrl(key)
     return {
       statusCode: 200,
