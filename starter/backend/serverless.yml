@@ -48,7 +48,7 @@ functions:
           - xray:PutTelemetryRecords
         Resource:
           - "*"
-      - Effect:
+      - Effect: Allow
         Action: 
           - dynamodb:Query
           - dynamodb:Scan

@@ -1,0 +1,5 @@
+serverless
+
+serverless deploy --verbose
+
+https://4gxv9d3bda.execute-api.us-east-1.amazonaws.com/dev
