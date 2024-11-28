@@ -4,9 +4,10 @@ import { getAttachmentUrl } from '../fileStorage/attachmentUtils.mjs'
 
 class BusinessLogicTodos{
   async create(userId, todoInput){
+    const todoId = uuid.v4();
     return todosAccessInstance.create({
       userId,
-      todoId: uuid.v4(),
+      todoId,
       createdAt: new Date().toISOString(),
       attachmentUrl: getAttachmentUrl(todoId),
       done: false,
