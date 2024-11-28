@@ -16,16 +16,6 @@ export const handler = middy()
     const updatedTodo = JSON.parse(event.body)
     const userId = getUserId(event)
 
-    const isTodoExisted = businessLogicTodosInstance.getByTodoId(userId, todoId)
-    if (!isTodoExisted) {
-      return {
-        statusCode: 400,
-        body: JSON.stringify({
-          message: "Todo not found"
-        })
-      }
-    }
-    
     const result = await businessLogicTodosInstance.update(userId, todoId, updatedTodo)
     return {
       statusCode: 200,

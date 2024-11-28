@@ -11,12 +11,9 @@ export const handler = middy()
     })
   )
   .handler(async (event) => {
-    const key = event.pathParameters.key
+    const todoId = event.pathParameters.todoId
 
-    console.log("key: " + key)
-    console.log("event.pathParameters: " + event.pathParameters)
-
-    const uploadUrl = await getPutSignedUrl(key)
+    const uploadUrl = await getPutSignedUrl(todoId)
     return {
       statusCode: 200,
       body: JSON.stringify({
