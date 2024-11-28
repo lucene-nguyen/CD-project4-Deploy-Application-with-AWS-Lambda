@@ -13,12 +13,12 @@ export const handler = middy()
   )
   .handler(async (event) => {
     const userId = getUserId(event)
-    const result = await businessLogicTodosInstance.get(userId)
+    const items = await businessLogicTodosInstance.get(userId)
 
     return {
       statusCode: 200,
       body: JSON.stringify({
-        result
+        items
       })
     }
   })
