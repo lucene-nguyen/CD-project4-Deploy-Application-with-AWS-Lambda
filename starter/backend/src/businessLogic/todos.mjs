@@ -8,7 +8,7 @@ class BusinessLogicTodos{
       userId,
       todoId,
       createdAt: new Date().toISOString(),
-      attachmentUrl: null,
+      attachmentUrl: "",
       done: false,
       ...todoInput,
     })
@@ -20,6 +20,10 @@ class BusinessLogicTodos{
 
   async update(userId, todoId, updateData){
     return todosAccessInstance.update(userId, todoId, updateData)
+  }
+
+  async updateAttachmentUrl(userId, todoId, attachmentUrl){
+    return todosAccessInstance.updateAttachmentUrl(userId, todoId, attachmentUrl)
   }
 
   async delete(userId, todoId){

@@ -47,6 +47,18 @@ class TodosAccess {
       })
   }
 
+  async updateAttachmentUrl(userId, todoId, attachmentUrl) {
+    await this.dynamoDbClient.update({
+      TableName: todosTable,
+      Key: { userId, todoId },
+      ConditionExpression: 'attribute_exists(todoId)',
+      UpdateExpression: 'set attachmentUrl = :att',
+      ExpressionAttributeValues: {
+        ':att': attachmentUrl
+      }
+    })
+  }  
+
   async delete(userId, todoId){
     const result = await this.dynamoDbClient
     .delete({
